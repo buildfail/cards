@@ -12,7 +12,7 @@ export class CardComponent {
   constructor() { }
 
   move(div) {
-    TweenLite.to(div, 0.5, { duration:1, y: "-=100",ease: "Power2.easeOut" });
+    TweenLite.to(div, 0.2, { y: "-=200",ease: "Power0.easeNone" });
   }
 
 }
