@@ -1,21 +1,24 @@
-.playing-card {
-    height: 10rem;
-    margin-left: auto;
-    margin-right: auto;
+.player-one {
+    top: 75%;
+}
+
+.player-two {
+    top: 5%;
+}
+
+.player-three {
+    top: 30%;
+    left: 5%;
+}
+
+.player-four {
+    top: 30%;
+    left: 90%;
+}
+
+.player {
+    pointer-events: none;
+    height: 7.5rem;
     position: absolute;
-    width: 5rem;
-    left: 40%;
-    top: 70%;
-}
-
-.one {
-    left: 43%;
-}
-
-.two {
-    left: 46%;
-}
-
-.three {
-    left: 49%;
+    width: 4rem;
 }
