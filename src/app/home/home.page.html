@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+      Santase
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,68 +9,64 @@
 <ion-content>
   <div class="container">
     <div class="row">
-      <div
-        class="player player-one"
-        *ngFor="let card of cards; let i = index"
-        [style.left]="playerLeftOffset + i * 3 + '%'"
-      >
-        <app-card
-          [xOffset]="xPercent"
-          [yOffset]="yPercent"
-          [hoverStyle]="'hover-top'"
-        ></app-card>
+      <div class="deck">
+        <app-deck></app-deck>
       </div>
     </div>
   </div>
 
   <div class="container">
     <div class="row">
-      <div
-        class="player player-two"
-        *ngFor="let card of cards; let i = index"
-        [style.left]="centralOffset + i * cardSpacingFactor + '%'"
-      >
-        <app-card
-          [xOffset]="xPercent"
-          [yOffset]="yPercent"
-          [hoverStyle]="'none'"
-          [angle]="i * angleOffset"
-        ></app-card>
+      <div class="player player-one">
+        <app-hand
+          [cards]="cards"
+          [layout]="'horizontal'"
+          [hover]="'top'"
+          [visible]="true"
+        ></app-hand>
       </div>
     </div>
   </div>
 
   <div class="container">
     <div class="row">
-      <div
-        class="player player-three"
-        *ngFor="let card of cards; let i = index"
-        [style.top]="sideOffset + i * cardSpacingFactor + '%'"
-      >
-        <app-card
-          [xOffset]="xPercent"
-          [yOffset]="yPercent"
-          [hoverStyle]="'none'"
-          [angle]="i * angleOffset"
-        ></app-card>
+      <div class="player player-two">
+        <app-hand
+          [cards]="cards"
+          [layout]="'horizontal'"
+          [spacing]="5"
+          [angleSpacing]="2"
+          [visible]="false"
+        ></app-hand>
       </div>
     </div>
   </div>
 
   <div class="container">
-      <div class="row">
-        <div
-          class="player player-four"
-          *ngFor="let card of cards; let i = index"
-          [style.top]="sideOffset + i * cardSpacingFactor + '%'"
-        >
-          <app-card
-            [xOffset]="xPercent"
-            [yOffset]="yPercent"
-            [hoverStyle]="'none'"
-            [angle]="i * angleOffset"
-          ></app-card>
-        </div>
+    <div class="row">
+      <div class="player player-three">
+        <app-hand
+          [cards]="cards"
+          [layout]="'vertical'"
+          [spacing]="5"
+          [angleSpacing]="2"
+          [visible]="false"
+        ></app-hand>
       </div>
     </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="player player-four">
+        <app-hand
+          [cards]="cards"
+          [layout]="'vertical'"
+          [spacing]="5"
+          [angleSpacing]="2"
+          [visible]="false"
+        ></app-hand>
+      </div>
+    </div>
+  </div>
 </ion-content>

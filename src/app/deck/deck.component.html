@@ -1,0 +1,13 @@
+<div #main class="container">
+  <div class="row">
+    <div *ngFor="let card of cards; let i = index">
+      <app-card
+        [left]="initialLeft + i * leftOffset"
+        [top]="initialTop + i * topOffset"
+        [hoverStyle]="hover"
+        [angle]="angle + i * angleSpacing"
+        [fliped]="visible"
+      ></app-card>
+    </div>
+  </div>
+</div>

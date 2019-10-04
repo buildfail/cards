@@ -6,20 +6,21 @@
 img {
   width: 100%;
   height: 100%;
+  position: absolute;
 }
 
-.hover-top:hover {
+.top:hover {
   transform: translateY(-30px);
 }
 
-.hover-down:hover {
+.down:hover {
   transform: translateY(30px);
 }
 
-.hover-left:hover {
+.left:hover {
   transform: translateX(-30px);
 }
 
-.hover-right:hover {
+.right:hover {
   transform: translateX(30px);
 }

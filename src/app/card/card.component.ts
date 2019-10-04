@@ -5,7 +5,8 @@ import {
   ElementRef,
   ViewChild,
   HostBinding,
-  OnInit
+  OnInit,
+  AfterViewInit
 } from "@angular/core";
 import { TweenLite, TweenMax, Sine, Power0 } from "gsap";
 
@@ -14,24 +15,47 @@ import { TweenLite, TweenMax, Sine, Power0 } from "gsap";
   templateUrl: "card.component.html",
   styleUrls: ["card.component.css"]
 })
-export class CardComponent implements OnInit {
+export class CardComponent implements OnInit, AfterViewInit {
   @HostBinding("style.pointer-events") pointerEvents = "auto";
   @ViewChild("pk", { static: false }) pk: ElementRef;
 
-  @Input() xOffset: number;
-  @Input() yOffset: number;
-  @Input() hoverStyle: string; // hover-top|hover-down|hover-left|hover-right
-  @Input() angle: number;
+  @Input() destination: string = "center";
+  @Input() hoverStyle: string = "none"; // top|down|left|right
+  @Input() angle: number = 0;
+  @Input() left: number = 0;
+  @Input() top: number = 0;
+  @Input() fliped: boolean = false;
+
+  animationSpeed = 0.4;
   customStyle = {};
 
   ngOnInit() {
-    if (this.angle) {
+    if (this.angle && this.angle > 0) {
       this.customStyle = { transform: "rotate(" + this.angle + "deg)" };
     }
+  }
+
+  ngAfterViewInit() {
+    this.pk.nativeElement.draggable = false;
   }
   constructor() {}
 
   @HostListener("click") onClick() {
+    if (this.destination === "center") {
+      this.playCard();
+    }
+    this.pointerEvents = "none";
+  }
+
+  get cardImage() {
+    if (this.fliped) {
+      return "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/English_pattern_jack_of_diamonds.svg/682px-English_pattern_jack_of_diamonds.svg.png";
+    }
+    return "https://cdn.shopify.com/s/files/1/0067/1124/6905/products/blue_ribbon_red_grande.png?v=1543433110";
+  }
+
+  public playCard() {
+    this.fliped = true;
     let viewportOffset = this.pk.nativeElement.getBoundingClientRect();
     let targetY = 0;
     if (viewportOffset.top > window.innerHeight / 2) {
@@ -55,21 +79,14 @@ export class CardComponent implements OnInit {
     const xoff = Math.floor(Math.random() * 1000) % 30;
     const yoff = Math.floor(Math.random() * 1000) % 30;
     const rotoff = Math.floor(Math.random() * 1000) % 180;
-    TweenMax.to(this.pk.nativeElement, 0.2, {
+    TweenMax.to(this.pk.nativeElement, this.animationSpeed, {
       x: targetX - width / 2 + xoff,
       y: targetY - height / 2 + yoff,
       ease: Power0.ease
     });
-    TweenLite.to(this.pk.nativeElement, .2, {
+    TweenLite.to(this.pk.nativeElement, this.animationSpeed, {
       rotation: rotoff,
       transformOrigin: "left 50%"
     });
-    this.pointerEvents = "none";
-  }
-
-  convertRemToPx(rem) {
-    return (
-      rem * parseFloat(getComputedStyle(document.documentElement).fontSize)
-    );
   }
 }
