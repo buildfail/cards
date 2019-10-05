@@ -7,7 +7,7 @@ import { RouterModule } from "@angular/router";
 import { HomePage } from "./home.page";
 import { CardComponent } from "../card/card.component";
 import { HandComponent } from "../hand/hand.component";
-import { DeckComponent } from '../deck/deck.component';
+import { DeckComponent } from "../deck/deck.component";
 
 @NgModule({
   imports: [

@@ -1,9 +1,9 @@
-<div #main class="container">
-  <div class="row">
-    <div *ngFor="let card of cards; let i = index">
+<div #main>
+  <div *ngFor="let card of cards; let i = index">
+    <div *ngIf="cards[i]">
       <app-card
-        [left]="initialLeft + i * leftOffset"
-        [top]="initialTop + i * topOffset"
+        [left]="left + i * leftOffset"
+        [top]="top + i * topOffset"
         [hoverStyle]="hover"
         [angle]="angle + i * angleSpacing"
         [fliped]="visible"

@@ -1,41 +1,7 @@
-.player-one,
-.player-two {
-  left: 40%;
-}
 
-.player-one {
-  top: 75%;
-}
-
-.player-two {
-  top: 5%;
-}
-
-.player-three,
-.player-four {
-  top: 30%;
-}
-
-.player-three {
-  left: 5%;
-}
-
-.player-four {
-  left: 80%;
-}
-
-.player {
+.player, .deck {
   pointer-events: none;
-  height: 7.5rem;
   position: absolute;
-  width: 4rem;
-}
-
-.deck {
-  pointer-events: none;
-  height: 7.5rem;
-  position: absolute;
-  width: 4rem;
-  left: 40%;
-  top: 40%;
+  width: 80px;
+  height: 150px;
 }

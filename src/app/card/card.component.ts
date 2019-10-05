@@ -1,24 +1,22 @@
 import {
   Component,
   Input,
-  HostListener,
   ElementRef,
   ViewChild,
-  HostBinding,
   OnInit,
-  AfterViewInit
+  AfterViewInit,
+  HostBinding
 } from "@angular/core";
-import { TweenLite, TweenMax, Sine, Power0 } from "gsap";
+import { TweenLite, Sine } from "gsap";
 
 @Component({
   selector: "app-card",
   templateUrl: "card.component.html",
   styleUrls: ["card.component.css"]
 })
-export class CardComponent implements OnInit, AfterViewInit {
-  @HostBinding("style.pointer-events") pointerEvents = "auto";
+export class CardComponent implements OnInit {
   @ViewChild("pk", { static: false }) pk: ElementRef;
-
+  @HostBinding("style.pointer-events") pointerEvents = "auto";
   @Input() destination: string = "center";
   @Input() hoverStyle: string = "none"; // top|down|left|right
   @Input() angle: number = 0;
@@ -26,7 +24,6 @@ export class CardComponent implements OnInit, AfterViewInit {
   @Input() top: number = 0;
   @Input() fliped: boolean = false;
 
-  animationSpeed = 0.4;
   customStyle = {};
 
   ngOnInit() {
@@ -35,17 +32,7 @@ export class CardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {
-    this.pk.nativeElement.draggable = false;
-  }
   constructor() {}
-
-  @HostListener("click") onClick() {
-    if (this.destination === "center") {
-      this.playCard();
-    }
-    this.pointerEvents = "none";
-  }
 
   get cardImage() {
     if (this.fliped) {
@@ -54,39 +41,23 @@ export class CardComponent implements OnInit, AfterViewInit {
     return "https://cdn.shopify.com/s/files/1/0067/1124/6905/products/blue_ribbon_red_grande.png?v=1543433110";
   }
 
-  public playCard() {
-    this.fliped = true;
+  public moveTo(targetTop, targetLeft, callback) {
+    this.pointerEvents = "none";
     let viewportOffset = this.pk.nativeElement.getBoundingClientRect();
-    let targetY = 0;
-    if (viewportOffset.top > window.innerHeight / 2) {
-      targetY = viewportOffset.top - window.innerHeight / 2;
-      targetY = -targetY;
-    } else {
-      targetY = window.innerHeight / 2 - viewportOffset.top;
-    }
 
-    let targetX = 0;
-    if (viewportOffset.left > window.innerWidth / 2) {
-      targetX = viewportOffset.left - window.innerWidth / 2;
-      targetX = -targetX;
-    } else {
-      targetX = window.innerWidth / 2 - viewportOffset.left;
-    }
+    let top = viewportOffset.top;
+    let left = viewportOffset.left;
 
-    let width = this.pk.nativeElement.offsetWidth;
+    const topDiff = targetTop - top;
+    const leftDiff = targetLeft - left;
+
     let height = this.pk.nativeElement.offsetHeight;
 
-    const xoff = Math.floor(Math.random() * 1000) % 30;
-    const yoff = Math.floor(Math.random() * 1000) % 30;
-    const rotoff = Math.floor(Math.random() * 1000) % 180;
-    TweenMax.to(this.pk.nativeElement, this.animationSpeed, {
-      x: targetX - width / 2 + xoff,
-      y: targetY - height / 2 + yoff,
-      ease: Power0.ease
-    });
-    TweenLite.to(this.pk.nativeElement, this.animationSpeed, {
-      rotation: rotoff,
-      transformOrigin: "left 50%"
+    TweenLite.to(this.pk.nativeElement, 0.3, {
+      y: topDiff + height / 2,
+      x: leftDiff,
+      ease: Sine.easeIn,
+      onComplete: callback
     });
   }
 }

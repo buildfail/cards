@@ -7,66 +7,47 @@
 </ion-header>
 
 <ion-content>
-  <div class="container">
-    <div class="row">
-      <div class="deck">
-        <app-deck></app-deck>
-      </div>
-    </div>
+  <div class="deck">
+    <app-deck [left]="viewWidth * 0.45" [top]="viewHeight * 0.40"></app-deck>
   </div>
 
-  <div class="container">
-    <div class="row">
-      <div class="player player-one">
-        <app-hand
-          [cards]="cards"
-          [layout]="'horizontal'"
-          [hover]="'top'"
-          [visible]="true"
-        ></app-hand>
-      </div>
-    </div>
+  <div class="player">
+    <app-hand
+      [layout]="'horizontal'"
+      [hover]="'top'"
+      [visible]="true"
+      [leftOffset]="viewWidth * 0.45"
+      [topOffset]="viewHeight * 0.8"
+    ></app-hand>
   </div>
 
-  <div class="container">
-    <div class="row">
-      <div class="player player-two">
-        <app-hand
-          [cards]="cards"
-          [layout]="'horizontal'"
-          [spacing]="5"
-          [angleSpacing]="2"
-          [visible]="false"
-        ></app-hand>
-      </div>
-    </div>
+  <div class="player">
+    <app-hand
+      [layout]="'horizontal'"
+      [hover]="'top'"
+      [visible]="true"
+      [leftOffset]="viewWidth * 0.45"
+      [topOffset]="viewHeight * 0.01"
+    ></app-hand>
   </div>
 
-  <div class="container">
-    <div class="row">
-      <div class="player player-three">
-        <app-hand
-          [cards]="cards"
-          [layout]="'vertical'"
-          [spacing]="5"
-          [angleSpacing]="2"
-          [visible]="false"
-        ></app-hand>
-      </div>
-    </div>
+  <div class="player">
+    <app-hand
+      [layout]="'vertical'"
+      [hover]="'top'"
+      [visible]="true"
+      [leftOffset]="viewWidth * 0.8"
+      [topOffset]="viewHeight * 0.4"
+    ></app-hand>
   </div>
 
-  <div class="container">
-    <div class="row">
-      <div class="player player-four">
-        <app-hand
-          [cards]="cards"
-          [layout]="'vertical'"
-          [spacing]="5"
-          [angleSpacing]="2"
-          [visible]="false"
-        ></app-hand>
-      </div>
-    </div>
+  <div class="player">
+    <app-hand
+      [layout]="'vertical'"
+      [hover]="'top'"
+      [visible]="true"
+      [leftOffset]="viewWidth * 0.1"
+      [topOffset]="viewHeight * 0.4"
+    ></app-hand>
   </div>
 </ion-content>

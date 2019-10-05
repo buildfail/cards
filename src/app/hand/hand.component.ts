@@ -1,45 +1,61 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ViewChild,
-  ElementRef,
-  AfterViewInit
-} from "@angular/core";
+import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
+import { CardComponent } from "../card/card.component";
 
 @Component({
   selector: "app-hand",
   templateUrl: "hand.component.html",
   styleUrls: ["hand.component.css"]
 })
-export class HandComponent implements OnInit, AfterViewInit {
+export class HandComponent implements OnInit {
   @ViewChild("main", { static: false }) main: ElementRef;
-  @Input() cards: any[];
+  @Input() cards: CardComponent[] = [];
   @Input() layout: string = "horizontal"; // horizontal|vertical;
   @Input() hover: string = "none";
-  @Input() spacing: number = 20;
+  @Input() spacing: number = 4;
   @Input() angleSpacing: number = 0;
   @Input() visible: boolean = false;
+  @Input() leftOffset: number;
+  @Input() topOffset: number;
+
   angle: number = 0;
-  initialLeft = 0;
-  initialTop = 0;
-  leftOffset = 0;
-  topOffset = 0;
+  leftOffsetStep = 0;
+  topOffsetStep = 0;
+
+  constructor() {}
 
   ngOnInit() {
     if (this.layout === "horizontal") {
-      this.leftOffset = this.spacing;
+      this.leftOffsetStep = this.spacing;
     }
 
     if (this.layout === "vertical") {
-      this.topOffset = this.spacing;
+      this.topOffsetStep = this.spacing;
       this.angle = 90;
     }
   }
-  ngAfterViewInit() {
-    const rect = this.main.nativeElement.getBoundingClientRect();
-    this.initialLeft = rect.left;
-    this.initialTop = rect.top;
+
+  getLeftOffset(index) {
+    let offset = this.leftOffset + index * this.leftOffsetStep;
+    return offset;
   }
-  constructor() {}
+
+  getTopOffset(index) {
+    return this.topOffset + index * this.topOffsetStep;
+  }
+
+  public takeCard(card: CardComponent, callback) {
+    const offsets = this.getOffsets();
+    card.moveTo(offsets.top, offsets.left, card => {
+      this.cards.push(card);
+      callback();
+    });
+  }
+
+  public getOffsets() {
+    return { top: this.topOffset, left: this.leftOffset };
+  }
+
+  public addCard(card: CardComponent) {
+    this.cards.push(card);
+  }
 }
